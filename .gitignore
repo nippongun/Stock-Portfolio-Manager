@@ -21,3 +21,4 @@ Cargo.lock
 # These files are for local testing only. Create your own files
 .env
 testing_db.db
+testing_db.db-journal

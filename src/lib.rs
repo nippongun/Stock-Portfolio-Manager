@@ -1,7 +1,4 @@
-#[cfg(test)]
-mod test {}
-
-use self::models::{NewPost, Post};
+use self::models::{NewUser, User};
 use diesel::prelude::*;
 use dotenvy::dotenv;
 use std::env;
@@ -19,26 +16,36 @@ pub fn establish_connection() -> SqliteConnection {
     //.expect(&format!("Error connencting to {}", database_url))
 }
 
-pub fn create_post<'a>(connection: &mut SqliteConnection, title: &'a str, body: &'a str) {
-    use schema::posts;
+pub fn create_user<'a>(connection: &mut SqliteConnection, user_name: &'a str, api_key: &'a str) {
+    use schema::users;
 
-    let new_post = NewPost {
-        title: title,
-        body: body,
-        published: &0,
+    let new_user = NewUser {
+        user_name: user_name,
+        api_key: api_key,
     };
 
-    diesel::insert_into(posts::table)
-        .values(&new_post)
+    diesel::insert_into(users::table)
+        .values(&new_user)
         .execute(connection)
-        .expect("Error saving new post");
+        .expect("Error saving new user");
 
-    let results = posts::table
-        .filter(posts::dsl::title.like(format!("%{}%", new_post.title)))
-        .load::<Post>(connection)
-        .expect("Error getting new post");
+    let results = users::table
+        .filter(users::dsl::user_name.like(format!("%{}%", new_user.user_name)))
+        .load::<User>(connection)
+        .expect("Error getting new user");
 
     for result in results {
         println!("{:?}", result);
     }
+}
+
+pub fn fetch_api_key<'a>(connection: &mut SqliteConnection, user_name: &'a str) -> String {
+    use schema::users;
+
+    let data: User = users::table
+        .filter(users::dsl::user_name.eq(user_name))
+        .first(connection)
+        .expect("Error");
+
+    data.api_key
 }

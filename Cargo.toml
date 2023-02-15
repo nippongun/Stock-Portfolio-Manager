@@ -1,5 +1,5 @@
 [package]
-name = "stock_portfolio_manger"
+name = "stock_portfolio_manager"
 version = "0.1.0"
 edition = "2021"
 authors = ["Simon Bauer <simppabauer@gmail.com>"]
