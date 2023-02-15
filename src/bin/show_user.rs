@@ -1,13 +1,9 @@
-extern crate diesel;
-extern crate stock_portfolio_manager;
-
-use self::diesel::prelude::*;
-use self::models::*;
-use self::stock_portfolio_manager::*;
+use crate::database::schema::users::dsl::*;
+use diesel::prelude::*;
+use stock_portfolio_manager::database::models::User;
+use stock_portfolio_manager::*;
 
 fn main() {
-    use stock_portfolio_manager::schema::users::dsl::*;
-
     let connection = &mut establish_connection();
     let results = users
         .limit(5)

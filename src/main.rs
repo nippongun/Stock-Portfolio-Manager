@@ -9,6 +9,7 @@ use stock::Stock;
 use stock_portfolio_manager::fetch_api_key;
 
 mod api_manager;
+mod database;
 mod stock;
 use api_manager::*;
 

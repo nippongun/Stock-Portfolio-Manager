@@ -3,7 +3,7 @@ use std::env::args;
 use stock_portfolio_manager::*;
 
 fn main() {
-    use self::schema::users::dsl::*;
+    use crate::database::schema::users::dsl::*;
 
     let target = args().nth(1).expect("Expected a target to match against");
     let pattern = format!("%{}%", target);

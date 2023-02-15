@@ -19,17 +19,17 @@ pub struct NewUser<'a> {
 
 #[derive(Queryable, Debug)]
 pub struct Stock {
-    pub id: u32,
-    pub user_id: u32,
+    pub id: i32,
+    pub user_id: i32,
     pub ticker: String,
-    pub purchase_price: f64,
-    pub current_price: f64,
+    pub purchase_price: f32,
+    pub current_price: f32,
 }
 
 #[derive(Insertable)]
 #[diesel(table_name = stocks)]
 pub struct NewStock<'a> {
-    pub user_id: i32,
+    pub user_id: &'a i32,
     pub ticker: &'a str,
     pub purchase_price: &'a f32,
     pub current_price: &'a f32,

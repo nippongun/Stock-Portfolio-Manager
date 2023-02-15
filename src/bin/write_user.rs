@@ -1,6 +1,6 @@
 use std::io::{stdin, Read};
+use stock_portfolio_manager::database::users::create_user;
 use stock_portfolio_manager::*;
-
 fn main() {
     let connection = &mut establish_connection();
 
