@@ -2,7 +2,6 @@ extern crate diesel;
 extern crate stock_portfolio_manager;
 
 use anyhow::Result;
-use std::env;
 use std::io::stdin;
 use std::thread::sleep;
 use std::time::{Duration, SystemTime, UNIX_EPOCH};
