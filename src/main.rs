@@ -2,6 +2,7 @@ extern crate diesel;
 extern crate stock_portfolio_manager;
 
 use anyhow::Result;
+use diesel::SqliteConnection;
 use std::io::stdin;
 use std::thread::sleep;
 use std::time::{Duration, SystemTime, UNIX_EPOCH};
@@ -15,36 +16,16 @@ use api_manager::*;
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    let mut request_counter: i32 = 0;
-
-    let mut now: u64;
-    let api_key = login();
-
+    let connection: &mut SqliteConnection = &mut stock_portfolio_manager::establish_connection();
+    let api_key = login(connection);
     let mut api_manager = ApiManager::new(&api_key);
-    let ticker = String::from("IBM");
-    let stock: Stock = Stock::create_stock(ticker);
-    api_manager.stocks.push(stock);
-    println!("Stock:{}", api_manager.stocks[0].ticker);
-    // loop
-    loop {
-        // get current time
-        now = SystemTime::now()
-            .duration_since(UNIX_EPOCH)
-            .unwrap()
-            .as_secs();
-        // poll stocks
-        // push stocks to db
-        // sleep for duration
-        request_counter = request_counter + 1;
-        println!("Time: {}, Counter:{}", now, request_counter);
 
-        api_manager.update_stocks().await?;
+    loop {
         sleep(Duration::from_secs(100));
     }
 }
 
-fn login() -> String {
-    let connection = &mut stock_portfolio_manager::establish_connection();
+fn login(connection: &mut SqliteConnection) -> String {
     let mut user_name = String::new();
     println!("Enter the user name:");
     stdin().read_line(&mut user_name).unwrap();
