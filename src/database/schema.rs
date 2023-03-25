@@ -5,6 +5,7 @@ diesel::table! {
         id -> Integer,
         user_id -> Integer,
         ticker -> Text,
+        amount -> Integer,
         purchase_price -> Float,
         current_price -> Float,
     }
@@ -18,7 +19,4 @@ diesel::table! {
     }
 }
 
-diesel::allow_tables_to_appear_in_same_query!(
-    stocks,
-    users,
-);
+diesel::allow_tables_to_appear_in_same_query!(stocks, users,);

@@ -7,6 +7,7 @@ pub fn create_stock<'a>(
     connection: &mut SqliteConnection,
     user_id: &'a i32,
     ticker: &'a String,
+    amount: &'a i32,
     purchase_price: &'a f32,
     current_price: &'a f32,
 ) {
@@ -15,6 +16,7 @@ pub fn create_stock<'a>(
     let new_stock = NewStock {
         user_id: user_id,
         ticker: ticker,
+        amount: amount,
         purchase_price: purchase_price,
         current_price: &0.00,
     };

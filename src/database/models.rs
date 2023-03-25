@@ -22,6 +22,7 @@ pub struct Stock {
     pub id: i32,
     pub user_id: i32,
     pub ticker: String,
+    pub amount: i32,
     pub purchase_price: f32,
     pub current_price: f32,
 }
@@ -31,6 +32,7 @@ pub struct Stock {
 pub struct NewStock<'a> {
     pub user_id: &'a i32,
     pub ticker: &'a str,
+    pub amount: &'a i32,
     pub purchase_price: &'a f32,
     pub current_price: &'a f32,
 }
